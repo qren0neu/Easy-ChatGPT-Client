@@ -1,57 +1,30 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
-const Chat = () => {
-    const [messages, setMessages] = useState([]);
-    const [input, setInput] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+function Chat({ role, generalSettings, roleSettings }) {
+  const [message, setMessage] = useState("");
+  const [response, setResponse] = useState("");
 
-    const sendMessage = async () => {
-        if (input.trim() === '') return;
-        const newMessage = { role: 'user', content: input };
-        setMessages([...messages, newMessage]);
-        setInput('');
-        setIsLoading(true);
+  const handleSubmit = async () => {
+    try {
+      const result = await axios.post("http://localhost:8000/chat/", {
+        role,
+        settings: { ...generalSettings, ...roleSettings },
+        message,
+      });
+      setResponse(result.data.response);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
 
-        try {
-            const response = await axios.post('/api/openai-chat', {
-                message: input,
-            });
-            const assistantMessage = {
-                role: 'assistant',
-                content: response.data.message,
-            };
-            setMessages([...messages, newMessage, assistantMessage]);
-        } catch (error) {
-            console.error('Error sending message:', error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+  return (
+    <div>
+      <textarea value={message} onChange={(e) => setMessage(e.target.value)} />
+      <button onClick={handleSubmit}>Send</button>
+      <div>{response}</div>
+    </div>
+  );
+}
 
-    return (
-        <div className="chat-container">
-            <div className="chat-messages">
-                {messages.map((msg, index) => (
-                    <div key={index} className={`chat-message ${msg.role}`}>
-                        {msg.content}
-                    </div>
-                ))}
-            </div>
-            <div className="chat-input">
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                    disabled={isLoading}
-                />
-                <button onClick={sendMessage} disabled={isLoading}>
-                    Send
-                </button>
-            </div>
-        </div>
-    );
-};
-
-export default Chat; 
+export default Chat;
