@@ -26,3 +26,8 @@ app.add_middleware(
 )
 
 app.include_router(router)
+
+# 添加根目录的处理函数
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the Chat API"}
