@@ -26,9 +26,6 @@ async def chat(request: ChatRequest):
             max_tokens=150
         )
         return {"response": response.choices[0].message['content'].strip()}
-    except openai.error.OpenAIError as e:
-        logging.error(f"OpenAI API error: {e}")
-        raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
     except Exception as e:
-        logging.error(f"Unexpected error: {e}")
-        raise HTTPException(status_code=500, detail=f"Unexpected error: {e}")
+        logging.error(f"Error occurred: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))

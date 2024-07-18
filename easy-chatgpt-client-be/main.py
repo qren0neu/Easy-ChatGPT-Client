@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 load_dotenv()
 
 # 验证环境变量是否正确加载
-
+print("Loaded OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
 
 
 app = FastAPI()
