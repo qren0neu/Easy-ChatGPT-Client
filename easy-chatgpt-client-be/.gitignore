@@ -81,5 +81,5 @@ migrations/
 *.sqlite3
 
 # Exclude files under server/__pycache__
-server/__pycache__/
 **/__pycache__/
+**/__pycache__
