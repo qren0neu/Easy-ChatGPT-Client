@@ -3,24 +3,31 @@ from pydantic import BaseModel
 import openai
 import os
 import logging
+from dotenv import load_dotenv
 
 router = APIRouter()
 
+load_dotenv()
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
+print(f"api_key: {openai.api_key} {os.getenv('OPENAI_API_KE')}")
+
 
 class ChatRequest(BaseModel):
     role: str
     settings: dict
     message: str
 
+
 @router.post("/chat/")
 async def chat(request: ChatRequest):
     try:
         prompt = f"Role: {request.role}\nSettings: {request.settings}\nMessage: {request.message}"
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": f"Role: {request.role}\nSettings: {request.settings}"},
+                {"role": "system",
+                    "content": f"Role: {request.role}\nSettings: {request.settings}"},
                 {"role": "user", "content": request.message}
             ],
             max_tokens=150

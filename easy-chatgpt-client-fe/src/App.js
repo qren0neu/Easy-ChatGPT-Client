@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Chat from "./components/Chat";
+import Chat from "./components/chat";
 import RoleSettings from "./components/RoleSettings";
 import GeneralSettings from "./components/GeneralSettings";
 import "./App.css";

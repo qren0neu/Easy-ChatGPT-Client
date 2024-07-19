@@ -9,12 +9,12 @@ load_dotenv()
 # 验证环境变量是否正确加载
 print("Loaded OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
 
-
 app = FastAPI()
 
 # CORS
 origins = [
     "http://localhost:3000",
+    "http://localhost:3001",
 ]
 
 app.add_middleware(
@@ -28,6 +28,13 @@ app.add_middleware(
 app.include_router(router)
 
 # 添加根目录的处理函数
+
+
 @app.get("/")
 async def read_root():
     return {"message": "Welcome to the Chat API"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

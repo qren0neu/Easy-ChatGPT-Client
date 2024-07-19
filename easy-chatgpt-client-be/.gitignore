@@ -1,24 +1,85 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# C extensions
+*.so
 
-# testing
-/coverage
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
 
-# production
-/build
+# Install logs
+pip-log.txt
+pip-delete-this-directory.txt
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# dotenv
 .env
+.env.*
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Environments
+.localenv
+.localenv.*
+.envrc
+
+# macOS
+.DS_Store
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# Ignore database files
+*.db
+*.sqlite
+
+# Ignore migrations
+migrations/
+
+# Ignore other specific files
+*.pyo
+*.pyd
+*.pdb
+*.pyc
+
+# FastAPI specific
+*.sqlite3
+
+# Exclude files under server/__pycache__
+server/__pycache__/
+**/__pycache__/
